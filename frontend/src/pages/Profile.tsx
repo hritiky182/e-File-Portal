@@ -12,9 +12,9 @@ import { LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const devices = [
-  { name: "NIC Secretariat Terminal · Chrome", loc: "New Delhi (NIC HQ)", last: "Now" },
-  { name: "iPhone 15 · Mobile e-Office", loc: "New Delhi", last: "1h ago" },
-  { name: "iPad Pro · Mobile e-Office", loc: "Mumbai (State Data Centre)", last: "3 days ago" },
+  { name: "CIS HQ Terminal · Chrome", loc: "New Delhi HQ", last: "Now" },
+  { name: "iPhone 15 · Mobile App", loc: "New Delhi", last: "1h ago" },
+  { name: "iPad Pro · Mobile App", loc: "Mumbai Branch", last: "3 days ago" },
 ];
 
 export default function ProfilePage() {
@@ -27,16 +27,16 @@ export default function ProfilePage() {
           <div className="flex flex-col items-center text-center">
             <Avatar className="h-24 w-24"><AvatarImage src="https://api.dicebear.com/9.x/initials/svg?seed=Aisha%20Rahman" /><AvatarFallback>AR</AvatarFallback></Avatar>
             <div className="mt-4 font-semibold">Aisha Rahman</div>
-            <div className="text-xs text-muted-foreground">Joint Secretary</div>
+            <div className="text-xs text-muted-foreground">VP of Operations</div>
             <StatusBadge status="Active" />
             <Button variant="outline" size="sm" className="mt-4 w-full" onClick={() => toast.success("Photo upload picker opened")}>Change photo</Button>
             <Button variant="ghost" size="sm" className="mt-2 w-full text-destructive" onClick={() => { localStorage.removeItem("authenticated"); toast.success("Signed out"); navigate("/login"); }}> <LogOut className="h-4 w-4 mr-1" /> Sign out</Button>
           </div>
           <dl className="text-sm mt-6 pt-6 border-t space-y-2">
-            <div className="flex justify-between"><dt className="text-muted-foreground">Officer Code</dt><dd>GOV-92837</dd></div>
-            <div className="flex justify-between"><dt className="text-muted-foreground">Department</dt><dd>Cabinet Secretariat</dd></div>
-            <div className="flex justify-between"><dt className="text-muted-foreground">Location</dt><dd>NIC New Delhi</dd></div>
-            <div className="flex justify-between"><dt className="text-muted-foreground">Reporting Secretary</dt><dd>Shri Rajesh Verma</dd></div>
+            <div className="flex justify-between"><dt className="text-muted-foreground">Employee ID</dt><dd>CIS-92837</dd></div>
+            <div className="flex justify-between"><dt className="text-muted-foreground">Department</dt><dd>Operations Department</dd></div>
+            <div className="flex justify-between"><dt className="text-muted-foreground">Location</dt><dd>New Delhi HQ</dd></div>
+            <div className="flex justify-between"><dt className="text-muted-foreground">Reporting Manager</dt><dd>Rajesh Verma (COO)</dd></div>
           </dl>
         </Section>
 
@@ -49,7 +49,7 @@ export default function ProfilePage() {
                 <form onSubmit={(e) => { e.preventDefault(); toast.success("Profile updated"); }} className="grid gap-4 md:grid-cols-2">
                   <div><Label>First name</Label><Input defaultValue="Aisha" /></div>
                   <div><Label>Last name</Label><Input defaultValue="Rahman" /></div>
-                  <div><Label>Email</Label><Input defaultValue="aisha.rahman@nic.in" /></div>
+                  <div><Label>Email</Label><Input defaultValue="aisha.rahman@cis.com" /></div>
                   <div><Label>Phone</Label><Input defaultValue="+91 98765 43210" /></div>
                   <div className="md:col-span-2"><Button>Save changes</Button></div>
                 </form>
@@ -87,7 +87,7 @@ export default function ProfilePage() {
             <TabsContent value="activity" className="mt-4">
               <Section>
                 <ol className="relative border-l ml-3 space-y-4">
-                  {["Signed in from Delhi (NIC HQ)","Approved 3 e-files","Uploaded Cabinet Brief for File F-11012-1","Ran Compliance & Acts report","Changed security PIN"].map((a, i) => (
+                  {["Signed in from Delhi HQ","Approved 3 files","Uploaded Operations Brief for File F-11012-1","Ran Compliance & Acts report","Changed security PIN"].map((a, i) => (
                     <li key={i} className="ml-4"><span className="absolute -left-[6px] mt-1.5 h-3 w-3 rounded-full bg-primary ring-4 ring-background" /><div className="text-sm">{a}</div><div className="text-xs text-muted-foreground">2026-07-{String(13 - i).padStart(2, "0")} 09:{String((i * 11) % 60).padStart(2, "0")}</div></li>
                   ))}
                 </ol>

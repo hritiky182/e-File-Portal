@@ -17,7 +17,7 @@ export default function Dashboard() {
   return (
     <div>
       <PageHeader
-        title="e-Office Overview Dashboard"
+        title="Enterprise Overview Dashboard"
         description="Real-time monitoring of files, movements, approvals, and audit trails."
         actions={
           <>
@@ -28,12 +28,12 @@ export default function Dashboard() {
       />
 
       <div className="grid gap-4 grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
-        <StatCard label="Total Active e-Files" value="284,912" delta={4.2} icon={FileText} tone="primary" />
+        <StatCard label="Total Active Files" value="284,912" delta={4.2} icon={FileText} tone="primary" />
         <StatCard label="Pending Desks" value="182" delta={-8.1} icon={Clock} tone="warning" />
         <StatCard label="Cleared Today" value="1,247" delta={12.4} icon={CheckCircle2} tone="success" />
         <StatCard label="Returned Today" value="34" delta={-2.3} icon={XCircle} tone="destructive" />
-        <StatCard label="e-Vault Storage" value="4.8 TB" delta={3.1} icon={HardDrive} tone="info" />
-        <StatCard label="Active Ministries" value="12" delta={0} icon={Building2} tone="primary" />
+        <StatCard label="Secure Vault Storage" value="4.8 TB" delta={3.1} icon={HardDrive} tone="info" />
+        <StatCard label="Active Departments" value="12" delta={0} icon={Building2} tone="primary" />
       </div>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
@@ -73,7 +73,7 @@ export default function Dashboard() {
       </div>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
-        <Section title="Ministry Wise File Volume" description="Documents per department">
+        <Section title="Department Wise File Volume" description="Documents per department">
           <div className="h-64">
             <ResponsiveContainer>
               <BarChart data={departmentUsage} layout="vertical" margin={{ left: 10 }}>
@@ -101,7 +101,7 @@ export default function Dashboard() {
           </div>
         </Section>
 
-        <Section title="e-File Classifications" description="Composition">
+        <Section title="File Classifications" description="Composition">
           <div className="h-64">
             <ResponsiveContainer>
               <PieChart>

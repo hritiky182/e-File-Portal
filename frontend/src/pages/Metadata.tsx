@@ -7,20 +7,20 @@ import { Plus, GripVertical, Tag } from "lucide-react";
 import { toast } from "sonner";
 
 const fields = [
-  { name: "e-File Unique Identifier", type: "Text", required: true, category: "All" },
-  { name: "Sanction Amount (INR)", type: "Number", required: true, category: "Treasury Sanction" },
+  { name: "File Unique Identifier", type: "Text", required: true, category: "All" },
+  { name: "Budget Amount (INR)", type: "Number", required: true, category: "Budget Authorization" },
   { name: "Circular Notification Date", type: "Date", required: true, category: "All" },
   { name: "Security Classification (Secret/Confidential)", type: "Select", required: true, category: "All" },
-  { name: "Ministry / Department Code", type: "Text", required: false, category: "All" },
-  { name: "Statutory Compliance Authority", type: "Select", required: false, category: "RTI Response" },
-  { name: "Public Records Archival Date", type: "Date", required: true, category: "All" },
+  { name: "Department Code", type: "Text", required: false, category: "All" },
+  { name: "Compliance Authority", type: "Select", required: false, category: "Regulatory Auditing" },
+  { name: "Records Archival Date", type: "Date", required: true, category: "All" },
 ];
 
 const templates = [
-  { name: "Cabinet Note Schema", fields: 12, docs: 1420 },
-  { name: "RTI Request Tracking Schema", fields: 18, docs: 812 },
-  { name: "Gazette Notification Draft", fields: 6, docs: 142 },
-  { name: "Inter-Departmental Movement Slip", fields: 9, docs: 388 },
+  { name: "Executive Board Schema", fields: 12, docs: 1420 },
+  { name: "Compliance Audit Schema", fields: 18, docs: 812 },
+  { name: "Release Announcement Schema", fields: 6, docs: 142 },
+  { name: "Inter-Departmental Routing Slip", fields: 9, docs: 388 },
 ];
 
 export default function MetadataPage() {
@@ -71,7 +71,7 @@ export default function MetadataPage() {
             </SelectContent></Select>
           </div>
           <div><label className="text-xs">Applies to category</label>
-            <Select><SelectTrigger><SelectValue placeholder="All categories" /></SelectTrigger><SelectContent><SelectItem value="all">All</SelectItem><SelectItem value="cabinet">Cabinet Note</SelectItem><SelectItem value="rti">RTI Request</SelectItem><SelectItem value="circular">Departmental Circular</SelectItem></SelectContent></Select>
+            <Select><SelectTrigger><SelectValue placeholder="All categories" /></SelectTrigger><SelectContent><SelectItem value="all">All</SelectItem><SelectItem value="board">Board Note</SelectItem><SelectItem value="compliance">Audit Request</SelectItem><SelectItem value="circular">Departmental Circular</SelectItem></SelectContent></Select>
           </div>
           <div className="flex items-end gap-2">
             <Button type="submit" className="flex-1">Save field</Button>

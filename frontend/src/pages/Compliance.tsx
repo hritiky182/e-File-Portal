@@ -38,11 +38,11 @@ export default function CompliancePage() {
         <Section title="Regulatory Reports">
           <ul className="space-y-2 text-sm">
             {[
-              ["CAG Audit Briefing", "2026-08-15", "Draft 78%"],
-              ["RTI Disclosure Annual Review", "2026-07-31", "Ready"],
-              ["NIC Cyber Security Certification", "2026-07-20", "Submitted"],
-              ["Public Records Act Compliance Report", "2026-09-01", "In review"],
-              ["National Data Sharing Audits", "2026-10-15", "Draft 42%"],
+              ["Internal Compliance Audit Briefing", "2026-08-15", "Draft 78%"],
+              ["Public Disclosure Annual Review", "2026-07-31", "Ready"],
+              ["ISO 27001 Security Certification", "2026-07-20", "Submitted"],
+              ["Data Privacy Act Compliance Report", "2026-09-01", "In review"],
+              ["Enterprise Data Sharing Audits", "2026-10-15", "Draft 42%"],
             ].map(([n, d, s]) => (
               <li key={n as string} className="rounded-lg border p-3">
                 <div className="text-sm font-medium">{n as string}</div>

@@ -37,8 +37,8 @@ export default function SettingsPage() {
 
         <TabsContent value="general" className="mt-4">
           <Section title="Organization">
-            <Row label="Organization name"><Input defaultValue="Cabinet Secretariat / NIC" /></Row>
-            <Row label="Region"><Select defaultValue="in-1"><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="in-1">NIC Cloud (Meghraj - Delhi)</SelectItem><SelectItem value="in-2">State Cloud (SIDC - Mumbai)</SelectItem></SelectContent></Select></Row>
+            <Row label="Organization name"><Input defaultValue="CIS Corporate Systems Inc." /></Row>
+            <Row label="Region"><Select defaultValue="in-1"><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="in-1">Delhi Datacenter</SelectItem><SelectItem value="in-2">Mumbai Branch Datacenter</SelectItem></SelectContent></Select></Row>
             <Row label="Default timezone"><Select defaultValue="ist"><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="ist">Asia/Kolkata (IST)</SelectItem><SelectItem value="utc">UTC</SelectItem></SelectContent></Select></Row>
             <Row label="Language"><Select defaultValue="en"><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="en">English</SelectItem><SelectItem value="hi">Hindi</SelectItem><SelectItem value="reg">Regional Languages</SelectItem></SelectContent></Select></Row>
           </Section>
@@ -46,7 +46,7 @@ export default function SettingsPage() {
 
         <TabsContent value="branding" className="mt-4">
           <Section title="Branding">
-            <Row label="Product name"><Input defaultValue="CIS e-File Portal" /></Row>
+            <Row label="Product name"><Input defaultValue="CIS File Portal" /></Row>
             <Row label="Primary color"><Input type="color" defaultValue="#3559d9" className="h-10 w-24" /></Row>
             <Row label="Logo"><Button variant="outline" onClick={() => toast.success("Logo file picker opened")}>Upload logo</Button></Row>
           </Section>
@@ -54,10 +54,10 @@ export default function SettingsPage() {
 
         <TabsContent value="email" className="mt-4">
           <Section title="Email">
-            <Row label="SMTP host"><Input defaultValue="mail.nic.in" /></Row>
-            <Row label="From address"><Input defaultValue="no-reply@nic.in" /></Row>
-            <Row label="Reply-to"><Input defaultValue="support.eoffice@nic.in" /></Row>
-            <Row label="Signature footer"><Textarea rows={3} defaultValue="Cabinet Secretariat · e-Office Portal" /></Row>
+            <Row label="SMTP host"><Input defaultValue="mail.cis.com" /></Row>
+            <Row label="From address"><Input defaultValue="no-reply@cis.com" /></Row>
+            <Row label="Reply-to"><Input defaultValue="support@cis.com" /></Row>
+            <Row label="Signature footer"><Textarea rows={3} defaultValue="CIS Corporate Systems · File Portal" /></Row>
           </Section>
         </TabsContent>
 

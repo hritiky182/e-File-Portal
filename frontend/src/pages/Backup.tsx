@@ -14,7 +14,7 @@ export default function BackupPage() {
         <StatCard label="Last successful backup" value="48 min ago" icon={DatabaseBackup} tone="success" delta={0} />
         <StatCard label="Recovery Points (30d)" value="30" icon={RotateCcw} tone="primary" delta={0} />
         <StatCard label="Storage Health" value="Healthy" icon={HardDrive} tone="success" delta={0} />
-        <StatCard label="DR Site" value="NIC Hyderabad · Ready" icon={ShieldCheck} tone="info" delta={0} />
+        <StatCard label="DR Site" value="Hyderabad Datacenter · Ready" icon={ShieldCheck} tone="info" delta={0} />
       </div>
       <Section title="Backup History">
         <div className="overflow-x-auto">

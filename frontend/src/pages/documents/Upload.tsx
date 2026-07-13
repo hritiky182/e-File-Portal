@@ -13,16 +13,16 @@ import { toast } from "sonner";
 export default function UploadPage() {
   const navigate = useNavigate();
   const [files, setFiles] = useState([
-    { name: "Cabinet_Note_Treasury_Clearance_2026.pdf", size: 2.4, progress: 100 },
-    { name: "RTI_Response_DOPT_8924.pdf", size: 0.9, progress: 76 },
+    { name: "Executive_Board_Budget_Clearance_2026.pdf", size: 2.4, progress: 100 },
+    { name: "Compliance_Audit_DOPT_8924.pdf", size: 0.9, progress: 76 },
     { name: "Circular_Rules_Amendment_Draft.docx", size: 1.2, progress: 100 },
   ]);
 
   return (
     <div>
       <PageHeader
-        title="Register & Upload e-File"
-        description="Register new dossiers, circulars or cabinet notes. File classification drives workflows, routing desks, and retention."
+        title="Register & Upload File"
+        description="Register new dossiers, circulars or board notes. File classification drives workflows, routing desks, and retention."
         actions={<Button variant="outline" asChild><Link to="/documents">Cancel</Link></Button>}
       />
 
@@ -57,31 +57,31 @@ export default function UploadPage() {
         </div>
 
         <div className="space-y-6">
-          <Section title="e-File Metadata" description="Applied to all files in queue">
+          <Section title="File Metadata" description="Applied to all files in queue">
             <form
-              onSubmit={(e) => { e.preventDefault(); toast.success("Files successfully uploaded and registered in e-File Portal"); navigate("/documents"); }}
+              onSubmit={(e) => { e.preventDefault(); toast.success("Files successfully uploaded and registered in File Portal"); navigate("/documents"); }}
               className="space-y-4"
             >
               <div className="grid grid-cols-2 gap-3">
                 <div className="col-span-2 space-y-1.5"><Label>Category</Label>
-                  <Select defaultValue="Cabinet Note"><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>
-                    <SelectItem value="Cabinet Note">Cabinet Note</SelectItem>
-                    <SelectItem value="Gazette Notification">Gazette Notification</SelectItem>
-                    <SelectItem value="RTI Request">RTI Request</SelectItem>
+                  <Select defaultValue="Board Note"><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>
+                    <SelectItem value="Board Note">Board Note</SelectItem>
+                    <SelectItem value="Release Announcement">Release Announcement</SelectItem>
+                    <SelectItem value="Audit Request">Audit Request</SelectItem>
                     <SelectItem value="Departmental Circular">Departmental Circular</SelectItem>
-                    <SelectItem value="Treasury Sanction">Treasury Sanction</SelectItem>
+                    <SelectItem value="Budget Authorization">Budget Authorization</SelectItem>
                   </SelectContent></Select>
                 </div>
-                <div className="space-y-1.5"><Label>Department / Ministry</Label>
+                <div className="space-y-1.5"><Label>Department</Label>
                   <Select defaultValue="Finance"><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>
-                    <SelectItem value="Finance">Ministry of Finance</SelectItem>
-                    <SelectItem value="Home">Ministry of Home Affairs</SelectItem>
-                    <SelectItem value="IT">Department of IT</SelectItem>
-                    <SelectItem value="Cabinet">Cabinet Secretariat</SelectItem>
-                    <SelectItem value="Personnel">DOPT</SelectItem>
+                    <SelectItem value="Finance">Finance</SelectItem>
+                    <SelectItem value="Home">Operations</SelectItem>
+                    <SelectItem value="IT">IT Department</SelectItem>
+                    <SelectItem value="Cabinet">Executive Office</SelectItem>
+                    <SelectItem value="Personnel">HR</SelectItem>
                   </SelectContent></Select>
                 </div>
-                <div className="space-y-1.5"><Label>Owner / Custodian</Label><Input defaultValue="Shri Aisha Rahman (Joint Secretary)" /></div>
+                <div className="space-y-1.5"><Label>Owner / Custodian</Label><Input defaultValue="Aisha Rahman (VP of Operations)" /></div>
                 <div className="space-y-1.5"><Label>Security Level</Label>
                   <Select defaultValue="Confidential"><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>
                     <SelectItem value="Public">Public</SelectItem><SelectItem value="Internal">Internal</SelectItem><SelectItem value="Confidential">Confidential</SelectItem><SelectItem value="Restricted">Restricted</SelectItem>
@@ -96,14 +96,14 @@ export default function UploadPage() {
                   </SelectContent></Select>
                 </div>
                 <div className="col-span-2 space-y-1.5"><Label>Workflow clearance routing</Label>
-                  <Select defaultValue="cabinet"><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>
-                    <SelectItem value="cabinet">Cabinet Note Clearance</SelectItem>
-                    <SelectItem value="rti">RTI Response Approval</SelectItem>
-                    <SelectItem value="budget">Budget Sanction Order</SelectItem>
+                  <Select defaultValue="board"><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>
+                    <SelectItem value="board">Board Note Clearance</SelectItem>
+                    <SelectItem value="compliance">Compliance Audit Approval</SelectItem>
+                    <SelectItem value="budget">Budget Authorization Order</SelectItem>
                     <SelectItem value="none">No workflow (Ad-hoc Desk movement)</SelectItem>
                   </SelectContent></Select>
                 </div>
-                <div className="col-span-2 space-y-1.5"><Label>Tags</Label><Input placeholder="e.g. classified, urgent, rti" defaultValue="classified, urgent" /></div>
+                <div className="col-span-2 space-y-1.5"><Label>Tags</Label><Input placeholder="e.g. classified, urgent, compliance" defaultValue="classified, urgent" /></div>
                 <div className="col-span-2 space-y-1.5"><Label>Description / Subject</Label><Textarea rows={3} placeholder="Provide descriptive subject details…" /></div>
               </div>
               <div className="flex gap-2 pt-2">

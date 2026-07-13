@@ -23,7 +23,7 @@ export default function DocumentDetailPage() {
     return (
       <div className="p-8 text-center">
         <div className="text-lg font-semibold text-destructive">File not found.</div>
-        <Link to="/documents" className="text-primary underline mt-2 block">Back to e-File Registry</Link>
+        <Link to="/documents" className="text-primary underline mt-2 block">Back to File Registry</Link>
       </div>
     );
   }
@@ -38,16 +38,16 @@ export default function DocumentDetailPage() {
   ]);
   const [newComment, setNewComment] = useState("");
   const [movementTrail, setMovementTrail] = useState([
-    { action: "File Created", officer: "Shri Ravi Iyer (Section Officer)", desk: "Section Registry Desk", date: "2026-07-01" },
-    { action: "Noted & Vetted", officer: "Smt Priya Sharma (Deputy Secretary)", desk: "Administration Desk", date: "2026-07-03" },
-    { action: "Digitally Signed (Aadhaar e-Sign)", officer: "Shri Mohammed Al-Farsi (Under Secretary)", desk: "Compliance Cell", date: "2026-07-05" },
-    { action: "Forwarded to Joint Secretary", officer: doc.owner, desk: "Joint Secretary Desk", date: doc.createdAt }
+    { action: "File Created", officer: "Ravi Iyer (Section Lead)", desk: "Section Registry Desk", date: "2026-07-01" },
+    { action: "Noted & Vetted", officer: "Priya Sharma (Operations Manager)", desk: "Administration Desk", date: "2026-07-03" },
+    { action: "Digitally Signed (Enterprise e-Sign)", officer: "Mohammed Al-Farsi (Senior VP)", desk: "Compliance Cell", date: "2026-07-05" },
+    { action: "Forwarded to VP of Operations", officer: doc.owner, desk: "VP of Operations Desk", date: doc.createdAt }
   ]);
 
   // Dialog States
   const [isSignOpen, setIsSignOpen] = useState(false);
   const [isMoveOpen, setIsMoveOpen] = useState(false);
-  const [aadhaarNumber, setAadhaarNumber] = useState("");
+  const [employeeId, setEmployeeId] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
 
@@ -60,15 +60,15 @@ export default function DocumentDetailPage() {
     if (!newComment.trim()) return;
     setComments([
       ...comments,
-      { author: "Shri Aisha Rahman (Joint Secretary)", time: "Just now", text: newComment }
+      { author: "Aisha Rahman (VP of Operations)", time: "Just now", text: newComment }
     ]);
     setNewComment("");
-    toast.success("Note added to Green Note Sheet");
+    toast.success("Note added to Internal Note Sheet");
   };
 
   const handleRequestOtp = () => {
-    if (aadhaarNumber.length !== 12 || isNaN(Number(aadhaarNumber))) {
-      toast.error("Please enter a valid 12-digit Aadhaar number");
+    if (!employeeId.trim().startsWith("CIS-")) {
+      toast.error("Please enter a valid Employee ID (e.g. CIS-92837)");
       return;
     }
     setOtpSent(true);
@@ -84,20 +84,20 @@ export default function DocumentDetailPage() {
     setComments([
       ...comments,
       {
-        author: "Shri Aisha Rahman (Joint Secretary)",
+        author: "Aisha Rahman (VP of Operations)",
         time: "Just now",
-        text: "Digitally signed using UIDAI Aadhaar e-Sign service. Transaction Ref: DSC-928374-NIC."
+        text: "Digitally signed using secure Enterprise e-Sign service. Transaction Ref: DSC-928374-CIS."
       }
     ]);
     setMovementTrail([
       ...movementTrail,
-      { action: "Digitally Signed (Aadhaar e-Sign)", officer: "Shri Aisha Rahman (Joint Secretary)", desk: "Joint Secretary Desk", date: "2026-07-13" }
+      { action: "Digitally Signed (Enterprise e-Sign)", officer: "Aisha Rahman (VP of Operations)", desk: "VP of Operations Desk", date: "2026-07-13" }
     ]);
     setIsSignOpen(false);
     setOtpSent(false);
-    setAadhaarNumber("");
+    setEmployeeId("");
     setOtp("");
-    toast.success("Aadhaar DSC / e-Sign generated and verified successfully.");
+    toast.success("Enterprise DSC / e-Sign generated and verified successfully.");
   };
 
   const handleDispatch = () => {
@@ -109,7 +109,7 @@ export default function DocumentDetailPage() {
     setComments([
       ...comments,
       {
-        author: "Shri Aisha Rahman (Joint Secretary)",
+        author: "Aisha Rahman (VP of Operations)",
         time: "Just now",
         text: `File forwarded to ${selectedOfficer} (${selectedDept}). Dispatch Remarks: ${moveRemarks || "No remarks."}`
       }
@@ -118,7 +118,7 @@ export default function DocumentDetailPage() {
       ...movementTrail,
       {
         action: "Forwarded / Dispatched",
-        officer: `Shri Aisha Rahman (Joint Secretary) -> ${selectedOfficer}`,
+        officer: `Aisha Rahman (VP of Operations) -> ${selectedOfficer}`,
         desk: `${selectedDept} Desk`,
         date: "2026-07-13"
       }
@@ -127,30 +127,30 @@ export default function DocumentDetailPage() {
     setSelectedOfficer("");
     setSelectedDept("");
     setMoveRemarks("");
-    toast.success(`e-File successfully moved to ${selectedOfficer}'s desk.`);
+    toast.success(`File successfully moved to ${selectedOfficer}'s desk.`);
   };
 
   const handleApprove = () => {
     setStatus("Approved");
     setComments([
       ...comments,
-      { author: "Shri Aisha Rahman (Joint Secretary)", time: "Just now", text: "e-File approved and cleared for dispatch." }
+      { author: "Aisha Rahman (VP of Operations)", time: "Just now", text: "File approved and cleared for dispatch." }
     ]);
-    toast.success("e-File approved and cleared.");
+    toast.success("File approved and cleared.");
   };
 
   const handleReturn = () => {
     setStatus("Rejected");
     setComments([
       ...comments,
-      { author: "Shri Aisha Rahman (Joint Secretary)", time: "Just now", text: "File returned to lower desk with objections for review." }
+      { author: "Aisha Rahman (VP of Operations)", time: "Just now", text: "File returned for review." }
     ]);
     toast.error("File returned with objections.");
   };
 
   return (
     <div>
-      <Button variant="ghost" size="sm" onClick={() => navigate("/documents")} className="mb-3"><ArrowLeft className="h-4 w-4 mr-1" /> Back to e-File Registry</Button>
+      <Button variant="ghost" size="sm" onClick={() => navigate("/documents")} className="mb-3"><ArrowLeft className="h-4 w-4 mr-1" /> Back to File Registry</Button>
       <PageHeader
         title={doc.name}
         description={`File No: ${doc.id} · ${doc.category} · ${doc.department}`}
@@ -180,7 +180,7 @@ export default function DocumentDetailPage() {
                   </div>
                   <p className="text-xs font-semibold mt-2">Subject: {doc.name}</p>
                   <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-                    Refer notes on file regarding {doc.category}. The proposed guidelines are compliant with the Public Records Act, 1993 and have been validated against the departmental circular database.
+                    Refer notes on file regarding {doc.category}. The proposed guidelines are compliant with corporate compliance policies and have been validated against the internal policy database.
                   </p>
                   <div className="mt-4 pt-2 border-t text-[10px] text-muted-foreground flex justify-between">
                     <span>Officer In-charge: {doc.owner}</span>
@@ -209,7 +209,7 @@ export default function DocumentDetailPage() {
                     </div>
                   ))}
                   <div className="flex gap-2 pt-3 border-t flex-col">
-                    <Textarea rows={2} placeholder="Add formal note / comments to this e-File note sheet…" value={newComment} onChange={(e) => setNewComment(e.target.value)} />
+                    <Textarea rows={2} placeholder="Add formal note / comments to this file note sheet…" value={newComment} onChange={(e) => setNewComment(e.target.value)} />
                     <Button className="self-end mt-2" onClick={handlePostNote}><MessageSquare className="h-4 w-4 mr-2" /> Post Note</Button>
                   </div>
                 </div>
@@ -248,7 +248,7 @@ export default function DocumentDetailPage() {
         </div>
 
         <aside className="space-y-6">
-          <Section title="e-File Metadata">
+          <Section title="File Metadata">
             <dl className="text-sm space-y-2.5">
               {[
                 ["File No", doc.id],
@@ -257,7 +257,7 @@ export default function DocumentDetailPage() {
                 ["Clearance Status", <StatusBadge key="s" status={status} />],
                 ["Security Level", <SecurityBadge key="sec" level={doc.security} />],
                 ["Desk Custodian", currentDesk],
-                ["Department / Ministry", doc.department],
+                ["Department", doc.department],
                 ["e-Sign Status", <span key="sig" className={`text-xs font-semibold px-2 py-0.5 rounded ${digitalSignatureStatus === "Verified" ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/20 dark:text-emerald-400" : "bg-yellow-100 text-yellow-800 dark:bg-yellow-950/20 dark:text-yellow-400"}`}>{digitalSignatureStatus}</span>],
                 ["Retention Policy", "Class A (Permanent Record)"],
                 ["Registry Date", doc.createdAt],
@@ -284,27 +284,26 @@ export default function DocumentDetailPage() {
         </aside>
       </div>
 
-      {/* Digital Sign (e-Sign) Aadhaar Dialog */}
+      {/* Digital Sign (e-Sign) Enterprise Dialog */}
       <Dialog open={isSignOpen} onOpenChange={setIsSignOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <ShieldCheck className="h-5 w-5 text-emerald-500" />
-              Aadhaar e-Sign Gateway
+              Enterprise e-Sign Gateway
             </DialogTitle>
             <DialogDescription>
-              Verify your identity using UIDAI Aadhaar e-Sign service to apply your official digital signature.
+              Verify your identity using the Secure Enterprise e-Sign service to apply your digital signature.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
-              <Label htmlFor="aadhaar">Aadhaar Number (12 digits)</Label>
+              <Label htmlFor="employeeId">Employee ID</Label>
               <Input
-                id="aadhaar"
-                placeholder="Enter 12-digit Aadhaar number"
-                maxLength={12}
-                value={aadhaarNumber}
-                onChange={(e) => setAadhaarNumber(e.target.value)}
+                id="employeeId"
+                placeholder="Enter Employee ID (e.g. CIS-92837)"
+                value={employeeId}
+                onChange={(e) => setEmployeeId(e.target.value)}
                 disabled={otpSent}
               />
             </div>
@@ -346,24 +345,24 @@ export default function DocumentDetailPage() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Send className="h-5 w-5 text-primary" />
-              Dispatch & Move e-File
+              Dispatch & Move File
             </DialogTitle>
             <DialogDescription>
-              Forward this document dossier to another ministry or officer's desk for vetting, noting, or clearance.
+              Forward this document dossier to another department or manager's desk for vetting, noting, or clearance.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
-              <Label>Ministry / Secretariat Department</Label>
+              <Label>Target Department</Label>
               <Select onValueChange={(v) => setSelectedDept(v)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select Department" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Ministry of Finance">Ministry of Finance</SelectItem>
-                  <SelectItem value="Ministry of Home Affairs">Ministry of Home Affairs</SelectItem>
-                  <SelectItem value="Ministry of External Affairs">Ministry of External Affairs</SelectItem>
-                  <SelectItem value="Department of Personnel & Training">Department of Personnel & Training</SelectItem>
+                  <SelectItem value="Finance">Finance</SelectItem>
+                  <SelectItem value="Operations">Operations</SelectItem>
+                  <SelectItem value="Sales & Marketing">Sales & Marketing</SelectItem>
+                  <SelectItem value="Human Resources">Human Resources</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -374,10 +373,10 @@ export default function DocumentDetailPage() {
                   <SelectValue placeholder="Select Target Officer" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Shri Rajesh Verma (Secretary)">Shri Rajesh Verma (Secretary)</SelectItem>
-                  <SelectItem value="Smt Priya Sharma (Deputy Secretary)">Smt Priya Sharma (Deputy Secretary)</SelectItem>
-                  <SelectItem value="Shri Mohammed Al-Farsi (Under Secretary)">Shri Mohammed Al-Farsi (Under Secretary)</SelectItem>
-                  <SelectItem value="Cabinet Secretary Desk">Cabinet Secretary Desk</SelectItem>
+                  <SelectItem value="Rajesh Verma (COO)">Rajesh Verma (COO)</SelectItem>
+                  <SelectItem value="Priya Sharma (Operations Manager)">Priya Sharma (Operations Manager)</SelectItem>
+                  <SelectItem value="Mohammed Al-Farsi (Senior VP)">Mohammed Al-Farsi (Senior VP)</SelectItem>
+                  <SelectItem value="Executive Office Desk">Executive Office Desk</SelectItem>
                 </SelectContent>
               </Select>
             </div>

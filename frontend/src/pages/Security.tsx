@@ -7,10 +7,10 @@ import { ShieldCheck, Lock, Users, MonitorSmartphone, ShieldAlert } from "lucide
 import { toast } from "sonner";
 
 const sessions = [
-  { user: "Aisha Rahman", device: "MacBook Pro · Chrome 140", ip: "10.20.4.12", location: "New Delhi (NIC HQ)", last: "just now" },
-  { user: "David Cohen", device: "Windows · Edge 128", ip: "10.20.4.44", location: "Mumbai (State Data Centre)", last: "3 min ago" },
-  { user: "Yuki Tanaka", device: "iPhone 15 · Safari", ip: "10.20.4.71", location: "Bengaluru (National Data Centre)", last: "12 min ago" },
-  { user: "Grace Mensah", device: "Windows · Chrome 140", ip: "10.20.4.88", location: "Hyderabad (DR Site)", last: "1 h ago" },
+  { user: "Aisha Rahman", device: "MacBook Pro · Chrome 140", ip: "10.20.4.12", location: "New Delhi HQ", last: "just now" },
+  { user: "David Cohen", device: "Windows · Edge 128", ip: "10.20.4.44", location: "Mumbai Branch", last: "3 min ago" },
+  { user: "Yuki Tanaka", device: "iPhone 15 · Safari", ip: "10.20.4.71", location: "Bengaluru Tech Center", last: "12 min ago" },
+  { user: "Grace Mensah", device: "Windows · Chrome 140", ip: "10.20.4.88", location: "Hyderabad DR Center", last: "1 h ago" },
 ];
 
 const alerts = [

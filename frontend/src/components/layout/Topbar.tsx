@@ -51,7 +51,7 @@ export function Topbar({ onToggleSidebar }: { onToggleSidebar: () => void }) {
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
           value={q} onChange={(e) => setQ(e.target.value)}
-          placeholder="Search e-files, workflows, officers… (⌘K)"
+          placeholder="Search files, workflows, employees… (⌘K)"
           className="pl-9 h-9 bg-secondary/60 border-transparent focus-visible:bg-background"
         />
       </form>
@@ -62,11 +62,11 @@ export function Topbar({ onToggleSidebar }: { onToggleSidebar: () => void }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56">
           <DropdownMenuLabel>Create</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => navigate("/documents/upload")}><Upload className="h-4 w-4 mr-2" /> Register e-File</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => navigate("/documents/upload")}><Upload className="h-4 w-4 mr-2" /> Register File</DropdownMenuItem>
           <DropdownMenuItem onClick={() => navigate("/scanning")}>New scan job</DropdownMenuItem>
           <DropdownMenuItem onClick={() => navigate("/workflows")}>Start workflow</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => navigate("/users")}>Invite Officer</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => navigate("/users")}>Invite Employee</DropdownMenuItem>
           <DropdownMenuItem onClick={() => navigate("/reports")}>Generate report</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -116,7 +116,7 @@ export function Topbar({ onToggleSidebar }: { onToggleSidebar: () => void }) {
             <Avatar className="h-8 w-8"><AvatarImage src="https://api.dicebear.com/9.x/initials/svg?seed=Aisha%20Rahman" /><AvatarFallback>AR</AvatarFallback></Avatar>
             <div className="hidden md:block text-left">
               <div className="text-xs font-semibold leading-tight">Aisha Rahman</div>
-              <div className="text-[10px] text-muted-foreground leading-tight">Joint Secretary</div>
+              <div className="text-[10px] text-muted-foreground leading-tight">VP of Operations</div>
             </div>
           </button>
         </DropdownMenuTrigger>

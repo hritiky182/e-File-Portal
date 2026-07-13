@@ -12,14 +12,14 @@ const nav: Array<{ label: string; items: Array<{ to: string; label: string; icon
     label: "Overview",
     items: [
       { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-      { to: "/search", label: "e-File Search", icon: Search },
+      { to: "/search", label: "Secure Search", icon: Search },
       { to: "/notifications", label: "Notifications", icon: Bell },
     ],
   },
   {
     label: "Files & Documents",
     items: [
-      { to: "/documents", label: "e-File Registry", icon: FileText },
+      { to: "/documents", label: "File Registry", icon: FileText },
       { to: "/documents/upload", label: "Upload & Register", icon: Upload },
       { to: "/scanning", label: "Scanning Module", icon: ScanLine },
       { to: "/metadata", label: "File Classification", icon: Tags },
@@ -46,7 +46,7 @@ const nav: Array<{ label: string; items: Array<{ to: string; label: string; icon
   {
     label: "Administration",
     items: [
-      { to: "/users", label: "Officer Directory", icon: Users },
+      { to: "/users", label: "Employee Directory", icon: Users },
       { to: "/roles", label: "Hierarchy & Roles", icon: KeyRound },
       { to: "/departments", label: "Departments", icon: Building2 },
       { to: "/settings", label: "System Settings", icon: Settings },
@@ -74,12 +74,12 @@ export function Sidebar({ collapsed }: { collapsed: boolean }) {
     )}>
       <div className="h-16 flex items-center gap-2 px-4 border-b border-sidebar-border shrink-0">
         <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-          <Landmark className="h-5 w-5" />
+          <ShieldCheck className="h-5 w-5" />
         </div>
         {!collapsed && (
           <div className="min-w-0">
-            <div className="text-sm font-bold tracking-tight">e-File Portal</div>
-            <div className="text-[11px] text-sidebar-foreground/60 truncate">CIS e-File System</div>
+            <div className="text-sm font-bold tracking-tight">CIS File Portal</div>
+            <div className="text-[11px] text-sidebar-foreground/60 truncate">CIS File System</div>
           </div>
         )}
       </div>
@@ -123,7 +123,7 @@ export function Sidebar({ collapsed }: { collapsed: boolean }) {
       {!collapsed && (
         <div className="p-3 border-t border-sidebar-border text-[11px] text-sidebar-foreground/60">
           <div>v4.2.1 · Central Server</div>
-          <div className="mt-0.5">Public Records Act Compliant</div>
+          <div className="mt-0.5">ISO 27001 Compliant</div>
         </div>
       )}
     </aside>

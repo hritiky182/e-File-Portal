@@ -1,5 +1,5 @@
-// Data for the CIS e-File Management System.
-// Realistic files, e-files, and ministries.
+// Data for the CIS File Management System.
+// Realistic files and departments.
 
 export type DocStatus = "Approved" | "Pending" | "Rejected" | "Draft" | "In Review" | "Archived";
 export type SecurityLevel = "Public" | "Internal" | "Confidential" | "Restricted";
@@ -24,10 +24,10 @@ export interface UserRow {
 }
 
 export interface Document {
-  id: string; // Unique e-File Number (Document Numbering)
+  id: string; // Unique File Number (Document Numbering)
   name: string;
   category: string;
-  owner: string; // Current Desk / Handler Officer
+  owner: string; // Current Desk / Handler Employee
   department: string; // Department-wise Access Control
   version: string;
   createdAt: string;
@@ -86,28 +86,28 @@ export interface AuditLog {
 }
 
 const owners = [
-  "Shri Aisha Rahman (Joint Secretary)",
-  "Shri Mohammed Al-Farsi (Under Secretary)",
-  "Smt Priya Sharma (Deputy Secretary)",
-  "Shri James O'Connor (Director)",
-  "Smt Sofia Rossi (Section Officer)",
-  "Shri Chen Wei (Joint Secretary)",
-  "Smt Fatima Zahra (Under Secretary)",
-  "Shri David Cohen (Director)",
-  "Smt Elena Petrov (Deputy Secretary)",
-  "Shri Ravi Iyer (Section Officer)",
-  "Smt Grace Mensah (Deputy Secretary)",
-  "Smt Yuki Tanaka (Under Secretary)",
+  "Aisha Rahman (VP of Operations)",
+  "Mohammed Al-Farsi (Senior VP)",
+  "Priya Sharma (Operations Manager)",
+  "James O'Connor (Department Director)",
+  "Sofia Rossi (Section Lead)",
+  "Chen Wei (VP of Operations)",
+  "Fatima Zahra (Senior VP)",
+  "David Cohen (Department Director)",
+  "Elena Petrov (Operations Manager)",
+  "Ravi Iyer (Section Lead)",
+  "Grace Mensah (Operations Manager)",
+  "Yuki Tanaka (Senior VP)",
 ];
 
 const categories = [
-  "Cabinet Note",
-  "Gazette Notification",
-  "RTI Request",
+  "Board Note",
+  "Release Announcement",
+  "Audit Request",
   "Departmental Circular",
-  "Treasury Sanction",
+  "Budget Authorization",
   "Budget Allocation",
-  "Public Petition",
+  "Customer Inquiry",
   "MOU/Agreement",
   "Policy Draft",
   "Audit Report",
@@ -116,16 +116,16 @@ const categories = [
 ];
 
 const departmentsList = [
-  "Ministry of Finance",
-  "Ministry of Home Affairs",
-  "Department of IT",
-  "Ministry of External Affairs",
-  "Cabinet Secretariat",
-  "Department of Personnel & Training",
-  "Planning Commission",
+  "Finance",
+  "Operations",
+  "Information Technology",
+  "Legal & Compliance",
+  "Executive Office",
+  "Human Resources",
+  "Strategic Planning",
   "Audit & Accounts",
-  "Revenue Department",
-  "Public Works Department",
+  "Sales & Marketing",
+  "Customer Support",
 ];
 
 const statuses: DocStatus[] = ["Approved", "Pending", "Rejected", "Draft", "In Review", "Archived"];
@@ -147,8 +147,8 @@ export const departments: Department[] = departmentsList.map((name, i) => ({
 export const users: UserRow[] = Array.from({ length: 42 }, (_, i) => ({
   id: `USR-${pad(i + 1)}`,
   name: pick(owners, i) + (i > 11 ? ` ${i}` : ""),
-  email: `${pick(owners, i).toLowerCase().replace(/[^a-z]/g, ".").replace(/\(.*\)/, "").trim()}@nic.in`,
-  role: pick(["Secretary", "Joint Secretary", "Director", "Deputy Secretary", "Under Secretary", "Section Officer", "Assistant Section Officer", "Auditor"], i),
+  email: `${pick(owners, i).toLowerCase().replace(/[^a-z]/g, ".").replace(/\(.*\)/, "").trim()}@cis.com`,
+  role: pick(["Chief Operating Officer (COO)", "VP of Operations", "Department Director", "Operations Manager", "Team Lead", "Section Lead", "Operations Assistant", "Auditor"], i),
   department: pick(departmentsList, i),
   status: (i % 11 === 0 ? "Locked" : i % 7 === 0 ? "Inactive" : "Active") as UserRow["status"],
   lastLogin: `2026-07-${String(1 + (i % 12)).padStart(2, "0")} ${String(8 + (i % 10)).padStart(2, "0")}:${String((i * 7) % 60).padStart(2, "0")}`,
@@ -158,12 +158,12 @@ export const users: UserRow[] = Array.from({ length: 42 }, (_, i) => ({
 export const documents: Document[] = Array.from({ length: 84 }, (_, i) => {
   const cat = pick(categories, i);
   const dept = pick(departmentsList, i);
-  const abbrev = dept.replace("Ministry of ", "M-").replace("Department of ", "D-").substring(0, 5).toUpperCase();
+  const abbrev = dept.substring(0, 5).toUpperCase();
   const fileNum = `F-11012-${(i % 15) + 1}-${2023 + (i % 4)}-${abbrev}`;
   const sigStatus = pick(["Verified", "Pending", "Unsigned"], i);
   return {
-    id: fileNum, // Unique e-File Numbering
-    name: `${cat} — ${pick(["Cabinet Brief", "Establishment Approval", "Budget Sanction", "Draft Amendment", "Advisory Circular", "Executive Minutes"], i)}`,
+    id: fileNum, // Unique File Numbering
+    name: `${cat} — ${pick(["Board Brief", "Establishment Approval", "Budget Authorization", "Draft Amendment", "Advisory Circular", "Executive Minutes"], i)}`,
     category: cat,
     owner: pick(owners, i),
     department: dept,
@@ -172,7 +172,7 @@ export const documents: Document[] = Array.from({ length: 84 }, (_, i) => {
     modifiedAt: `2026-0${2 + (i % 5)}-${String(1 + ((i * 3) % 27)).padStart(2, "0")}`,
     status: pick(statuses, i),
     security: pick(securities, i),
-    tags: [pick(["classified", "gazette", "rti-related", "cabinet"], i), pick(["urgent", "immediate", "routine", "confidential"], i + 1)],
+    tags: [pick(["classified", "internal", "compliance", "board"], i), pick(["urgent", "immediate", "routine", "confidential"], i + 1)],
     sizeKb: 120 + (i * 137) % 8400,
     type: pick(types, i),
     starred: i % 6 === 0,
@@ -185,12 +185,12 @@ export const documents: Document[] = Array.from({ length: 84 }, (_, i) => {
 });
 
 export const workflows: Workflow[] = [
-  { id: "WF-101", name: "Cabinet Note Clearance", stages: 5, active: 24, completed: 312, avgHours: 18, owner: "Cabinet Secretariat" },
-  { id: "WF-102", name: "RTI Response Approval", stages: 3, active: 41, completed: 1204, avgHours: 6, owner: "Department of Personnel & Training" },
-  { id: "WF-103", name: "Budget Sanction Order", stages: 6, active: 12, completed: 88, avgHours: 42, owner: "Ministry of Finance" },
-  { id: "WF-104", name: "Bilateral Treaty Review", stages: 4, active: 7, completed: 63, avgHours: 24, owner: "Ministry of External Affairs" },
-  { id: "WF-105", name: "Circular Dissemination", stages: 3, active: 3, completed: 47, avgHours: 12, owner: "Cabinet Secretariat" },
-  { id: "WF-106", name: "DOPT Recruitment Process", stages: 4, active: 15, completed: 210, avgHours: 8, owner: "Department of Personnel & Training" },
+  { id: "WF-101", name: "Board Note Clearance", stages: 5, active: 24, completed: 312, avgHours: 18, owner: "Executive Office" },
+  { id: "WF-102", name: "Compliance Audit Approval", stages: 3, active: 41, completed: 1204, avgHours: 6, owner: "Human Resources" },
+  { id: "WF-103", name: "Budget Authorization Order", stages: 6, active: 12, completed: 88, avgHours: 42, owner: "Finance" },
+  { id: "WF-104", name: "Vendor Agreement Review", stages: 4, active: 7, completed: 63, avgHours: 24, owner: "Legal & Compliance" },
+  { id: "WF-105", name: "Policy Dissemination", stages: 3, active: 3, completed: 47, avgHours: 12, owner: "Executive Office" },
+  { id: "WF-106", name: "HR Recruitment Process", stages: 4, active: 15, completed: 210, avgHours: 8, owner: "Human Resources" },
 ];
 
 export const approvals: Approval[] = Array.from({ length: 18 }, (_, i) => ({
@@ -200,17 +200,17 @@ export const approvals: Approval[] = Array.from({ length: 18 }, (_, i) => ({
   department: pick(departmentsList, i),
   priority: pick(["High", "Medium", "Low"] as const, i),
   dueDate: `2026-07-${String(14 + (i % 14)).padStart(2, "0")}`,
-  stage: pick(["Joint Secretary Review", "Departmental Verification", "External Affairs Clearance", "Cabinet Sign-off"], i),
+  stage: pick(["VP Operations Review", "Departmental Verification", "Legal Clearance", "Executive Sign-off"], i),
   progress: 20 + (i * 13) % 80,
 }));
 
 export const notifications: Notification[] = [
-  { id: "N1", type: "approval", title: "File movement request", body: "File No: F-11012/1/2023-M/FIN is moved to your desk for approval.", time: "2m ago", read: false },
-  { id: "N2", type: "workflow", title: "Cabinet note cleared", body: "Framework WF-101 Cabinet Note Clearance successfully completed.", time: "18m ago", read: false },
-  { id: "N3", type: "share", title: "File shared with your desk", body: "Smt Priya Sharma shared Circular Draft with your section.", time: "1h ago", read: false },
-  { id: "N4", type: "security", title: "Restricted file access attempt", body: "Unauthorized read blocked for Confidential File in M/Home Affairs.", time: "3h ago", read: true },
-  { id: "N5", type: "mention", title: "Noted on note-sheet", body: "@you was mentioned on the green note-sheet of File F-11012/4/2025.", time: "5h ago", read: true },
-  { id: "N6", type: "system", title: "Scheduled e-Office audit", body: "Compliance logs review window Sun 02:00–04:00 UTC", time: "1d ago", read: true },
+  { id: "N1", type: "approval", title: "File movement request", body: "File No: F-11012/1/2026-FIN is moved to your desk for approval.", time: "2m ago", read: false },
+  { id: "N2", type: "workflow", title: "Board note cleared", body: "Framework WF-101 Board Note Clearance successfully completed.", time: "18m ago", read: false },
+  { id: "N3", type: "share", title: "File shared with your desk", body: "Priya Sharma shared Circular Draft with your section.", time: "1h ago", read: false },
+  { id: "N4", type: "security", title: "Restricted file access attempt", body: "Unauthorized read blocked for Confidential File in Operations.", time: "3h ago", read: true },
+  { id: "N5", type: "mention", title: "Noted on note-sheet", body: "@you was mentioned on the internal note-sheet of File F-11012/4/2025.", time: "5h ago", read: true },
+  { id: "N6", type: "system", title: "Scheduled file audit", body: "Compliance logs review window Sun 02:00–04:00 UTC", time: "1d ago", read: true },
 ];
 
 export const auditLogs: AuditLog[] = Array.from({ length: 60 }, (_, i) => ({
@@ -252,47 +252,47 @@ export const workflowCompletion = [
 ];
 
 export const integrations = [
-  { name: "National Single Sign-On (Jan Parichay)", status: "Connected", last: "2m ago", icon: "Landmark" },
-  { name: "Public Financial Management System (PFMS)", status: "Connected", last: "12m ago", icon: "Boxes" },
-  { name: "National Informatics Centre (NIC) Mail", status: "Connected", last: "1h ago", icon: "Mail" },
-  { name: "e-Pramaan Identity Gateway", status: "Connected", last: "3m ago", icon: "Users" },
-  { name: "UIDAI Aadhaar e-Sign Service", status: "Connected", last: "just now", icon: "Cable" },
+  { name: "Enterprise Single Sign-On (Okta / Azure AD)", status: "Connected", last: "2m ago", icon: "Landmark" },
+  { name: "SAP Financial Management System", status: "Connected", last: "12m ago", icon: "Boxes" },
+  { name: "Enterprise Mail Server", status: "Connected", last: "1h ago", icon: "Mail" },
+  { name: "Auth0 Identity Gateway", status: "Connected", last: "3m ago", icon: "Users" },
+  { name: "DocuSign Enterprise Sign Service", status: "Connected", last: "just now", icon: "Cable" },
   { name: "Community REST API", status: "Connected", last: "20m ago", icon: "Send" },
-  { name: "SMS Gateway (NIC)", status: "Connected", last: "5d ago", icon: "Webhook" },
+  { name: "Twilio SMS Gateway", status: "Connected", last: "5d ago", icon: "Webhook" },
 ];
 
 export const scanners = [
   { name: "Central Registry Division — Fujitsu fi-7160", status: "Idle", queue: 0, ip: "10.10.20.11" },
-  { name: "DOPT Scanning Desk — Kodak i2900", status: "Scanning", queue: 4, ip: "10.10.20.14" },
-  { name: "Ministry Finance Registry — Canon DR-C240", status: "Idle", queue: 0, ip: "10.10.20.18" },
+  { name: "HR Scanning Desk — Kodak i2900", status: "Scanning", queue: 4, ip: "10.10.20.14" },
+  { name: "Finance Registry — Canon DR-C240", status: "Idle", queue: 0, ip: "10.10.20.18" },
   { name: "Legal Cell — Epson DS-780N", status: "Error", queue: 2, ip: "10.10.20.22" },
 ];
 
 export const compliance = [
-  { name: "Public Records Act, 1993 Compliance", status: "Compliant", coverage: 98 },
-  { name: "RTI Act Section 4 Proactive Disclosure", status: "Compliant", coverage: 96 },
-  { name: "National Cyber Security Policy 2013", status: "Attention", coverage: 82 },
-  { name: "Cabinet Secretariat Circulars on e-Office", status: "Compliant", coverage: 100 },
-  { name: "IT Act 2000 Digital Signature Mandate", status: "Compliant", coverage: 94 },
-  { name: "National Data Sharing & Accessibility Policy", status: "Attention", coverage: 88 },
+  { name: "Data Privacy Act Compliance", status: "Compliant", coverage: 98 },
+  { name: "Public Relations Transparency Audit", status: "Compliant", coverage: 96 },
+  { name: "Enterprise Cybersecurity Policy 2026", status: "Attention", coverage: 82 },
+  { name: "Executive Office Internal Circulars", status: "Compliant", coverage: 100 },
+  { name: "Digital Signature Standards Mandate", status: "Compliant", coverage: 94 },
+  { name: "Enterprise Data Sharing & Accessibility Policy", status: "Attention", coverage: 88 },
 ];
 
 export const backups = [
-  { id: "BKP-NIC-2026-07-13-02", type: "Full", size: "1.42 TB", status: "Success", started: "2026-07-13 02:00", duration: "48m" },
-  { id: "BKP-NIC-2026-07-12-02", type: "Incremental", size: "72 GB", status: "Success", started: "2026-07-12 02:00", duration: "12m" },
-  { id: "BKP-NIC-2026-07-11-02", type: "Incremental", size: "68 GB", status: "Success", started: "2026-07-11 02:00", duration: "11m" },
-  { id: "BKP-NIC-2026-07-10-02", type: "Incremental", size: "81 GB", status: "Partial", started: "2026-07-10 02:00", duration: "22m" },
-  { id: "BKP-NIC-2026-07-09-02", type: "Full", size: "1.38 TB", status: "Success", started: "2026-07-09 02:00", duration: "51m" },
+  { id: "BKP-CIS-2026-07-13-02", type: "Full", size: "1.42 TB", status: "Success", started: "2026-07-13 02:00", duration: "48m" },
+  { id: "BKP-CIS-2026-07-12-02", type: "Incremental", size: "72 GB", status: "Success", started: "2026-07-12 02:00", duration: "12m" },
+  { id: "BKP-CIS-2026-07-11-02", type: "Incremental", size: "68 GB", status: "Success", started: "2026-07-11 02:00", duration: "11m" },
+  { id: "BKP-CIS-2026-07-10-02", type: "Incremental", size: "81 GB", status: "Partial", started: "2026-07-10 02:00", duration: "22m" },
+  { id: "BKP-CIS-2026-07-09-02", type: "Full", size: "1.38 TB", status: "Success", started: "2026-07-09 02:00", duration: "51m" },
 ];
 
 export const roles = [
-  { name: "Secretary", users: 4, permissions: 84, description: "Full ministry oversight, clearance authorization, policies" },
-  { name: "Joint Secretary", users: 7, permissions: 60, description: "Approval, classification, delegation, retention policy" },
-  { name: "Director", users: 22, permissions: 42, description: "Section-wise verification, forwarding and note-sheet approvals" },
-  { name: "Deputy Secretary", users: 18, permissions: 34, description: "File creation, noting, drafting and desk routing" },
-  { name: "Under Secretary", users: 12, permissions: 28, description: "File movement authorization, compliance monitoring" },
-  { name: "Section Officer", users: 15, permissions: 20, description: "File processing, initial noting, dispatch management" },
-  { name: "Assistant Section Officer", users: 34, permissions: 14, description: "Drafting, data entry, scanning, registration" },
+  { name: "Chief Operating Officer (COO)", users: 4, permissions: 84, description: "Full organizational oversight, clearance authorization, policies" },
+  { name: "VP of Operations", users: 7, permissions: 60, description: "Approval, classification, delegation, retention policy" },
+  { name: "Department Director", users: 22, permissions: 42, description: "Section-wise verification, forwarding and note-sheet approvals" },
+  { name: "Operations Manager", users: 18, permissions: 34, description: "File creation, noting, drafting and desk routing" },
+  { name: "Team Lead", users: 12, permissions: 28, description: "File movement authorization, compliance monitoring" },
+  { name: "Section Lead", users: 15, permissions: 20, description: "File processing, initial noting, dispatch management" },
+  { name: "Operations Assistant", users: 34, permissions: 14, description: "Drafting, data entry, scanning, registration" },
   { name: "Auditor", users: 5, permissions: 10, description: "Audit trail inspection and regulatory review" },
 ];
 

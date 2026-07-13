@@ -14,12 +14,12 @@ import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
 const folders = [
-  { name: "Cabinet Secretariats", count: 1420 },
-  { name: "Treasury & Finance Bills", count: 2840 },
-  { name: "Gazette Notifications", count: 940 },
-  { name: "RTI Files & Circulars", count: 1832 },
+  { name: "Executive Suite", count: 1420 },
+  { name: "Finance & Accounts", count: 2840 },
+  { name: "Operations & Audits", count: 940 },
+  { name: "Regulatory Compliance", count: 1832 },
   { name: "Establishment & Personnel", count: 3612 },
-  { name: "Public Works & Revenue", count: 488 },
+  { name: "Operations & Support", count: 488 },
 ];
 
 export default function DocumentsPage() {
@@ -44,12 +44,12 @@ export default function DocumentsPage() {
   return (
     <div>
       <PageHeader
-        title="e-File Registry"
-        description="Browse, track, and dispatch e-files across ministries and desks."
+        title="File Registry"
+        description="Browse, track, and dispatch secure files across departments."
         actions={
           <>
             <Button variant="outline" onClick={() => toast.success("New Section Folder created")}><FolderPlus className="h-4 w-4 mr-2" /> New Section Folder</Button>
-            <Button asChild><Link to="/documents/upload"><Upload className="h-4 w-4 mr-2" /> Register e-File</Link></Button>
+            <Button asChild><Link to="/documents/upload"><Upload className="h-4 w-4 mr-2" /> Register File</Link></Button>
           </>
         }
       />
@@ -120,7 +120,7 @@ export default function DocumentsPage() {
                           <th className="text-left p-3 font-medium">File Subject / Name</th>
                           <th className="text-left p-3 font-medium hidden md:table-cell">Category</th>
                           <th className="text-left p-3 font-medium hidden lg:table-cell">Custodian Desk</th>
-                          <th className="text-left p-3 font-medium hidden lg:table-cell">Ministry/Dept</th>
+                          <th className="text-left p-3 font-medium hidden lg:table-cell">Department</th>
                           <th className="text-left p-3 font-medium hidden xl:table-cell">Version</th>
                           <th className="text-left p-3 font-medium">Status</th>
                           <th className="text-left p-3 font-medium hidden xl:table-cell">Security</th>

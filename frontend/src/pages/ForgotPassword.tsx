@@ -19,7 +19,7 @@ export default function ForgotPasswordPage() {
             <h2 className="mt-4 text-xl font-bold">Reset your password</h2>
             <p className="text-sm text-muted-foreground mt-1">Enter your work email and we'll send a secure OTP.</p>
             <form onSubmit={(e) => { e.preventDefault(); setSent(true); toast.success("OTP sent to your inbox"); }} className="mt-6 space-y-4">
-              <div className="space-y-1.5"><Label>Work email</Label><Input type="email" placeholder="name@nic.in" required /></div>
+              <div className="space-y-1.5"><Label>Work email</Label><Input type="email" placeholder="name@cis.com" required /></div>
               <Button className="w-full">Send verification code</Button>
             </form>
           </>
