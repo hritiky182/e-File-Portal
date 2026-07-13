@@ -1,5 +1,5 @@
-// Mock data for the Government e-File Management System.
-// Realistic government files, e-files, and ministries.
+// Data for the CIS e-File Management System.
+// Realistic files, e-files, and ministries.
 
 export type DocStatus = "Approved" | "Pending" | "Rejected" | "Draft" | "In Review" | "Archived";
 export type SecurityLevel = "Public" | "Internal" | "Confidential" | "Restricted";
@@ -257,7 +257,7 @@ export const integrations = [
   { name: "National Informatics Centre (NIC) Mail", status: "Connected", last: "1h ago", icon: "Mail" },
   { name: "e-Pramaan Identity Gateway", status: "Connected", last: "3m ago", icon: "Users" },
   { name: "UIDAI Aadhaar e-Sign Service", status: "Connected", last: "just now", icon: "Cable" },
-  { name: "Government Community REST API", status: "Connected", last: "20m ago", icon: "Send" },
+  { name: "Community REST API", status: "Connected", last: "20m ago", icon: "Send" },
   { name: "SMS Gateway (NIC)", status: "Connected", last: "5d ago", icon: "Webhook" },
 ];
 

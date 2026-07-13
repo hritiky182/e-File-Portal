@@ -20,16 +20,16 @@ export default function LoginPage() {
           <div className="grid h-11 w-11 place-items-center rounded-xl bg-sidebar-primary"><Landmark className="h-6 w-6 text-sidebar-primary-foreground" /></div>
           <div>
             <div className="text-lg font-bold">e-File Portal</div>
-            <div className="text-xs text-sidebar-foreground/70">Government e-File System</div>
+            <div className="text-xs text-sidebar-foreground/70">CIS e-File System</div>
           </div>
         </div>
         <div className="relative space-y-6">
-          <h1 className="text-4xl font-bold leading-tight tracking-tight">National e-File Portal for public administration.</h1>
+          <h1 className="text-4xl font-bold leading-tight tracking-tight">CIS e-File Portal for administrative operations.</h1>
           <p className="text-sidebar-foreground/70 max-w-md">Replace manual paper filing with digital movements, electronic signature verification, audit trails, and strict department-wise hierarchy access.</p>
           <div className="grid grid-cols-3 gap-4 max-w-md pt-4 border-t border-sidebar-border">
             <div><div className="text-2xl font-bold">99.9%</div><div className="text-xs text-sidebar-foreground/60">Uptime SLA</div></div>
             <div><div className="text-2xl font-bold">AES-256</div><div className="text-xs text-sidebar-foreground/60">Encryption</div></div>
-            <div><div className="text-2xl font-bold">Gov Compliant</div><div className="text-xs text-sidebar-foreground/60">Public Records Act</div></div>
+            <div><div className="text-2xl font-bold">Compliant</div><div className="text-xs text-sidebar-foreground/60">Public Records Act</div></div>
           </div>
         </div>
         <div className="relative text-xs text-sidebar-foreground/50">© 2026 National Informatics Centre · Department of IT</div>
@@ -58,7 +58,7 @@ export default function LoginPage() {
             className="mt-8 space-y-4"
           >
             <div className="space-y-1.5">
-              <Label htmlFor="email">Officer Email (NIC/Gov)</Label>
+              <Label htmlFor="email">Officer Email (NIC)</Label>
               <Input id="email" type="email" defaultValue="aisha.rahman@nic.in" placeholder="name@nic.in" required />
             </div>
             <div className="space-y-1.5">
@@ -83,7 +83,7 @@ export default function LoginPage() {
           <div className="mt-8 flex items-start gap-3 rounded-lg border bg-secondary/50 p-4">
             <Lock className="h-4 w-4 mt-0.5 text-primary" />
             <div className="text-xs text-muted-foreground">
-              This is a restricted Government e-File system. Unauthorized access is monitored, logged, and strictly prohibited under the Information Technology Act.
+              This is a restricted e-File system. Unauthorized access is monitored, logged, and strictly prohibited under the Information Technology Act.
             </div>
           </div>
         </div>

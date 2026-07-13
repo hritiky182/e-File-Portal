@@ -46,7 +46,7 @@ export default function SettingsPage() {
 
         <TabsContent value="branding" className="mt-4">
           <Section title="Branding">
-            <Row label="Product name"><Input defaultValue="National e-File Portal" /></Row>
+            <Row label="Product name"><Input defaultValue="CIS e-File Portal" /></Row>
             <Row label="Primary color"><Input type="color" defaultValue="#3559d9" className="h-10 w-24" /></Row>
             <Row label="Logo"><Button variant="outline" onClick={() => toast.success("Logo file picker opened")}>Upload logo</Button></Row>
           </Section>
@@ -57,7 +57,7 @@ export default function SettingsPage() {
             <Row label="SMTP host"><Input defaultValue="mail.nic.in" /></Row>
             <Row label="From address"><Input defaultValue="no-reply@nic.in" /></Row>
             <Row label="Reply-to"><Input defaultValue="support.eoffice@nic.in" /></Row>
-            <Row label="Signature footer"><Textarea rows={3} defaultValue="Government of India · Cabinet Secretariat · e-Office Portal" /></Row>
+            <Row label="Signature footer"><Textarea rows={3} defaultValue="Cabinet Secretariat · e-Office Portal" /></Row>
           </Section>
         </TabsContent>
 

@@ -18,7 +18,7 @@ export default function Dashboard() {
     <div>
       <PageHeader
         title="e-Office Overview Dashboard"
-        description="Real-time monitoring of government files, movements, approvals, and audit trails."
+        description="Real-time monitoring of files, movements, approvals, and audit trails."
         actions={
           <>
             <Button variant="outline" asChild><Link to="/documents/upload"><Upload className="h-4 w-4 mr-2" /> Register File</Link></Button>

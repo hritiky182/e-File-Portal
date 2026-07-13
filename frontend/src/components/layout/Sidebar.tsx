@@ -50,7 +50,7 @@ const nav: Array<{ label: string; items: Array<{ to: string; label: string; icon
       { to: "/roles", label: "Hierarchy & Roles", icon: KeyRound },
       { to: "/departments", label: "Departments", icon: Building2 },
       { to: "/settings", label: "System Settings", icon: Settings },
-      { to: "/integrations", label: "Gov Integrations", icon: Plug },
+      { to: "/integrations", label: "Integrations", icon: Plug },
       { to: "/backup", label: "Backup & Recovery", icon: DatabaseBackup },
     ],
   },
@@ -79,7 +79,7 @@ export function Sidebar({ collapsed }: { collapsed: boolean }) {
         {!collapsed && (
           <div className="min-w-0">
             <div className="text-sm font-bold tracking-tight">e-File Portal</div>
-            <div className="text-[11px] text-sidebar-foreground/60 truncate">Government e-File System</div>
+            <div className="text-[11px] text-sidebar-foreground/60 truncate">CIS e-File System</div>
           </div>
         )}
       </div>

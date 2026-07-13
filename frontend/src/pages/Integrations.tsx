@@ -10,7 +10,7 @@ const icons: Record<string, any> = { Boxes, Cable, Landmark, Mail, Network, Send
 export default function IntegrationsPage() {
   return (
     <div>
-      <PageHeader title="Integrations" description="Connect national identity gateways, public financial systems, government mail, and official e-signature APIs." actions={<Button variant="outline" onClick={() => toast.info("Marketplace coming soon")}>Browse marketplace</Button>} />
+      <PageHeader title="Integrations" description="Connect national identity gateways, public financial systems, secure mail, and official e-signature APIs." actions={<Button variant="outline" onClick={() => toast.info("Marketplace coming soon")}>Browse marketplace</Button>} />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {integrations.map((i) => {
           const Icon = icons[i.icon] ?? Cable;

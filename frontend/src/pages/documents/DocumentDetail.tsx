@@ -171,7 +171,7 @@ export default function DocumentDetailPage() {
             <div className="aspect-[4/5] rounded-lg bg-gradient-to-br from-secondary to-muted grid place-items-center border">
               <div className="text-center max-w-md p-8 w-full">
                 <FileIcon type={doc.type} className="h-16 w-16 mx-auto text-primary" />
-                <div className="mt-4 text-lg font-semibold">{doc.type} Government Dossier</div>
+                <div className="mt-4 text-lg font-semibold">{doc.type} Official Dossier</div>
                 <div className="text-sm text-muted-foreground mt-1">Official Viewer for {doc.id}</div>
                 <div className="mt-6 space-y-2 text-left text-sm bg-emerald-50/50 border border-emerald-200/50 dark:bg-emerald-950/10 dark:border-emerald-900/30 rounded-lg p-4 shadow-soft">
                   <div className="font-semibold border-b pb-2 text-emerald-800 dark:text-emerald-300 flex items-center justify-between">
