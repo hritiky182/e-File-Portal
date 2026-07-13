@@ -80,12 +80,12 @@ export default function LoginPage() {
             <Button type="submit" className="w-full h-10" disabled={loading}>{loading ? "Verifying Credentials…" : (<>Sign in <ArrowRight className="h-4 w-4 ml-1" /></>)}</Button>
           </form>
 
-          <div className="mt-8 flex items-start gap-3 rounded-lg border bg-secondary/50 p-4">
+          {/* <div className="mt-8 flex items-start gap-3 rounded-lg border bg-secondary/50 p-4">
             <Lock className="h-4 w-4 mt-0.5 text-primary" />
             <div className="text-xs text-muted-foreground">
               This is a restricted file system. Unauthorized access is monitored, logged, and strictly prohibited under internal security policies.
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
