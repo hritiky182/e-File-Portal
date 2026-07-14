@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { PageHeader, Section } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { Plus, GripVertical, Tag } from "lucide-react";
+import { Plus, GripVertical, Tag, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 
 const fields = [
   { name: "File Unique Identifier", type: "Text", required: true, category: "All" },
@@ -24,14 +27,46 @@ const templates = [
 ];
 
 export default function MetadataPage() {
+  const [fieldsList, setFieldsList] = useState(fields);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [newName, setNewName] = useState("");
+  const [newType, setNewType] = useState("Text");
+  const [newCategory, setNewCategory] = useState("All");
+  const [newRequired, setNewRequired] = useState(false);
+
+  const handleAddField = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newName.trim()) {
+      toast.error("Please enter a valid field name");
+      return;
+    }
+    const newField = {
+      name: newName,
+      type: newType,
+      required: newRequired,
+      category: newCategory
+    };
+    setFieldsList([newField, ...fieldsList]);
+    toast.success(`Metadata field '${newName}' created successfully`);
+    setNewName("");
+    setNewType("Text");
+    setNewCategory("All");
+    setNewRequired(false);
+    setIsDialogOpen(false);
+  };
+
   return (
     <div>
-      <PageHeader title="Metadata & Classification" description="Design metadata schemas, classification rules and retention triggers." actions={<Button onClick={() => toast.success("New field schema created")}><Plus className="h-4 w-4 mr-2" /> New field</Button>} />
+      <PageHeader 
+        title="Metadata & Classification" 
+        description="Design metadata schemas, classification rules and retention triggers." 
+        actions={<Button onClick={() => setIsDialogOpen(true)}><Plus className="h-4 w-4 mr-2" /> New field</Button>} 
+      />
 
       <div className="grid gap-6 lg:grid-cols-3">
         <Section title="Metadata Fields" className="lg:col-span-2">
           <ul className="space-y-2">
-            {fields.map((f) => (
+            {fieldsList.map((f) => (
               <li key={f.name} className="flex items-center gap-3 rounded-lg border p-3">
                 <GripVertical className="h-4 w-4 text-muted-foreground shrink-0" />
                 <div className="grid h-9 w-9 place-items-center rounded-md bg-primary/10 text-primary"><Tag className="h-4 w-4" /></div>
@@ -79,6 +114,80 @@ export default function MetadataPage() {
           </div>
         </form>
       </Section>
+
+      {/* New Field Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Tag className="h-5 w-5 text-primary" />
+              New Metadata Field
+            </DialogTitle>
+            <DialogDescription>
+              Create a new metadata field for document classification and indexing.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleAddField}>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="name">Field Name</Label>
+                <Input
+                  id="name"
+                  placeholder="e.g. Project Code"
+                  value={newName}
+                  onChange={(e) => setNewName(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="type">Field Type</Label>
+                <Select value={newType} onValueChange={setNewType}>
+                  <SelectTrigger id="type">
+                    <SelectValue placeholder="Select type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Text">Text</SelectItem>
+                    <SelectItem value="Number">Number</SelectItem>
+                    <SelectItem value="Date">Date</SelectItem>
+                    <SelectItem value="Select">Select</SelectItem>
+                    <SelectItem value="Multi-select">Multi-select</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="category">Category</Label>
+                <Select value={newCategory} onValueChange={setNewCategory}>
+                  <SelectTrigger id="category">
+                    <SelectValue placeholder="Select category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="All">All</SelectItem>
+                    <SelectItem value="Board Note">Board Note</SelectItem>
+                    <SelectItem value="Audit Request">Audit Request</SelectItem>
+                    <SelectItem value="Departmental Circular">Departmental Circular</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="required">Required Field</Label>
+                <Switch
+                  id="required"
+                  checked={newRequired}
+                  onCheckedChange={setNewRequired}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button type="submit">
+                Save field
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

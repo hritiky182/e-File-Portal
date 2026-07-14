@@ -1,9 +1,13 @@
+import { useState } from "react";
 import { PageHeader, Section } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { roles } from "@/mock/data";
 import { KeyRound, Shield, Plus } from "lucide-react";
 import { toast } from "sonner";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 const perms = [
   "Documents.View", "Documents.Upload", "Documents.Delete", "Documents.Share",
@@ -13,12 +17,42 @@ const perms = [
 ];
 
 export default function RolesPage() {
+  const [rolesList, setRolesList] = useState(roles);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [rName, setRName] = useState("");
+  const [rDesc, setRDesc] = useState("");
+  const [rPermCount, setRPermCount] = useState(6);
+
+  const handleAddRole = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!rName.trim() || !rDesc.trim()) {
+      toast.error("Please fill in role name and description");
+      return;
+    }
+    const newRole = {
+      name: rName,
+      description: rDesc,
+      users: 0,
+      permissions: Number(rPermCount)
+    };
+    setRolesList([...rolesList, newRole]);
+    toast.success(`Role '${rName}' definition created successfully`);
+    setRName("");
+    setRDesc("");
+    setRPermCount(6);
+    setIsDialogOpen(false);
+  };
+
   return (
     <div>
-      <PageHeader title="Roles & Permissions" description="Granular RBAC across documents, workflows and administration." actions={<Button onClick={() => toast.success("New role definition created")}><Plus className="h-4 w-4 mr-2" /> New role</Button>} />
+      <PageHeader 
+        title="Roles & Permissions" 
+        description="Granular RBAC across documents, workflows and administration." 
+        actions={<Button onClick={() => setIsDialogOpen(true)}><Plus className="h-4 w-4 mr-2" /> New role</Button>} 
+      />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
-        {roles.map((r) => (
+        {rolesList.map((r) => (
           <Section key={r.name}>
             <div className="grid h-10 w-10 place-items-center rounded-lg bg-primary/10 text-primary"><Shield className="h-5 w-5" /></div>
             <div className="mt-3 font-semibold text-sm">{r.name}</div>
@@ -33,19 +67,78 @@ export default function RolesPage() {
           <table className="w-full text-sm">
             <thead className="bg-muted/50 text-xs"><tr>
               <th className="text-left p-3 font-medium sticky left-0 bg-muted/50"><KeyRound className="h-3.5 w-3.5 inline mr-1" /> Permission</th>
-              {roles.map((r) => <th key={r.name} className="text-center p-3 font-medium min-w-[110px]">{r.name.split(" ")[0]}</th>)}
+              {rolesList.map((r) => <th key={r.name} className="text-center p-3 font-medium min-w-[110px]">{r.name.split(" ")[0]}</th>)}
             </tr></thead>
             <tbody className="divide-y">
               {perms.map((p, i) => (
                 <tr key={p} className="hover:bg-muted/40">
                   <td className="p-3 sticky left-0 bg-card font-mono text-xs">{p}</td>
-                  {roles.map((_, ri) => <td key={ri} className="p-3 text-center"><Checkbox defaultChecked={(i + ri) % 3 !== 0} /></td>)}
+                  {rolesList.map((_, ri) => <td key={ri} className="p-3 text-center"><Checkbox defaultChecked={(i + ri) % 3 !== 0} /></td>)}
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </Section>
+
+      {/* New Role Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Shield className="h-5 w-5 text-primary" />
+              New Role Definition
+            </DialogTitle>
+            <DialogDescription>
+              Define a new access role and configure its permission levels.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleAddRole}>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="rName">Role Name</Label>
+                <Input
+                  id="rName"
+                  placeholder="e.g. Compliance Auditor"
+                  value={rName}
+                  onChange={(e) => setRName(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="rDesc">Description</Label>
+                <Input
+                  id="rDesc"
+                  placeholder="e.g. Vets compliance policies and audit documents"
+                  value={rDesc}
+                  onChange={(e) => setRDesc(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="rPermCount">Permissions Count</Label>
+                <Input
+                  id="rPermCount"
+                  type="number"
+                  min={1}
+                  max={20}
+                  value={rPermCount}
+                  onChange={(e) => setRPermCount(Number(e.target.value))}
+                  required
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button type="submit">
+                Create Role
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
